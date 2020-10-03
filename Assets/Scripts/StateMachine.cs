@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StateMachine : MonoBehaviour
 {
@@ -25,17 +27,46 @@ public class StateMachine : MonoBehaviour
     }
     #endregion
 
+    private GameStates previousState = GameStates.Menu;
     public GameStates currentState = GameStates.Menu;
+
+    [HideInInspector]
+    public bool Paused = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (currentState != previousState)
+        {
+            switch (currentState)
+            {
+                case GameStates.Menu:
+                    onEnterMenuState();
+                    break;
+                case GameStates.Playing:
+                    onEnterPlayingState();
+                    break;
+            }
+        }
+    }
+
+    private void onEnterPlayingState()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    private void onEnterMenuState()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void SetNextState(GameStates newState)
+    {
+        currentState = newState;
     }
 }
