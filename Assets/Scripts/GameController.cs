@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -28,28 +30,34 @@ public class GameController : MonoBehaviour
 
 
     public GameObject PausePanel;
-    public GameObject VictoryPanel, DefeatPanel;
+    public GameObject DefeatPanel;
     public GameObject EnemyPrefab;
     public Transform enemiesParent;
+    public Button BonusButton;
     public float limRight, limLeft, limHeight, limLow;
 
     private Vector3 playerStartPos;
     private Quaternion playerStartRot;
     private PlayerController player;
 
+    #region enemyOrganization
     [SerializeField]
     private int numberOfEnemiesMax = 16;
-
-    private int currentNbOfEnemies;
-
     [SerializeField]
     private int numberOfEnemiesPerLine = 4;
+
+    private int currentNbOfEnemies;
+    #endregion
 
     //used to make sur we only make the enemies go down once each time they arrive at the end of the line
     private bool goingRight = true;
 
     //might have to be replaced with the state machine pause button
     private bool paused = false;
+
+    public float bonusDuration = 5;
+    private bool bonusTaken = false;
+    private float bonusCountdown = 0;
 
     #region unitStats
     public float EnemySpeed = 3.0f;
@@ -59,6 +67,8 @@ public class GameController : MonoBehaviour
 
     [HideInInspector]
     public int NumberOfBonusUsed = 0;
+    
+    private float curDelayShots;
     #endregion
 
 
@@ -68,8 +78,10 @@ public class GameController : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         playerStartPos = player.transform.position;
         playerStartRot = player.transform.rotation;
-        restart();
+        curDelayShots = DelayBetweenShoots;
+        Restart();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -87,6 +99,11 @@ public class GameController : MonoBehaviour
                 resume();
             }
         }
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.W)){
+            SceneManager.LoadScene("InBetweenLevels");
+        }
+#endif
     }
 
     #region pauseButtonActions
@@ -113,13 +130,13 @@ public class GameController : MonoBehaviour
         Application.Quit();
     }
 
-    public void restart()
+    public void Restart()
     {
-        player.transform.position = playerStartPos;
-        player.transform.rotation = playerStartRot;
         Destroy(enemiesParent.gameObject);
         GameObject newParent = new GameObject();
         enemiesParent = newParent.transform;
+        player.transform.position = playerStartPos;
+        player.transform.rotation = playerStartRot;
         int numberOfLines = numberOfEnemiesMax / numberOfEnemiesPerLine;
         for (int i = 0; i < numberOfLines; i++)
         {
@@ -130,20 +147,19 @@ public class GameController : MonoBehaviour
             }
         }
         PausePanel.SetActive(false);
-        VictoryPanel.SetActive(false);
         currentNbOfEnemies = numberOfEnemiesMax;
         DefeatPanel.SetActive(false);
         resume();
     }
-    #endregion
+#endregion
 
-    #region enemyRelatedFunctions
+#region enemyRelatedFunctions
     public void EnemyKilled()
     {
         currentNbOfEnemies--;
         if (currentNbOfEnemies == 0)
         {
-            VictoryPanel.SetActive(true);
+            SceneManager.LoadScene("InBetweenLevels");
         }
     }
 
@@ -182,10 +198,17 @@ public class GameController : MonoBehaviour
             }
         }
     }
-    #endregion
+#endregion
 
     public void takeBonus()
     {
-
+        BonusButton.interactable = false;
+        for (int i = 0; i < enemiesParent.childCount; i++)
+        {
+            enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(EnemySlowSpeed);
+        }
+        bonusCountdown = 0;
+        bonusTaken = true;
+        NumberOfBonusUsed++;
     }
 }

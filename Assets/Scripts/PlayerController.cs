@@ -13,16 +13,22 @@ public class PlayerController : MonoBehaviour
 
     private bool canShoot = true;
     private float timeSinceShoot = 0;
-
+    float startTimer;
     private void Start()
     {
         speed = GameController.Instance.PlayerSpeed;
         delayBetweenShoots = GameController.Instance.DelayBetweenShoots;
+        startTimer = 0;
     }
+
     // Update is called once per frame
     void Update()
     {
-
+        if (startTimer <= 3)
+        {
+            startTimer += Time.deltaTime;
+            return;
+        }
         Vector3 pos = transform.position;
         pos.x += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         pos.x = Mathf.Min(MaxLimit, pos.x);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ public class Enemy : MonoBehaviour
     {
         speed = GameController.Instance.EnemySpeed;
         rg = GetComponent<Rigidbody2D>();
+        StartCoroutine(WaitBeforeLaunch());
+    }
+
+    private IEnumerator WaitBeforeLaunch()
+    {
+        yield return new WaitForSeconds(3);
         rg.velocity = new Vector2(speed, 0);
     }
 
