@@ -37,7 +37,7 @@ public class MenuController : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Game");
+        StateMachine.Instance.currentState = GameStates.Playing;
     }
 
     public void GoToMenu()
@@ -65,6 +65,6 @@ public class MenuController : MonoBehaviour
 
     public void Close()
     {
-        Application.Quit();
+        StateMachine.Instance.currentState = GameStates.Quitting;
     }
 }

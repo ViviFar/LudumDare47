@@ -1340,16 +1340,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1077971243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c0caaa0a82d6040a650b008cbb5468, type: 3}
+  m_Script: {fileID: 11500000, guid: 9047fdf1a06005940a38cfbc78c5f1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousState: 0
   currentState: 0
-  Paused: 0
   EnemySpeed: 6
   EnemySlowSpeed: 0.75
   DelayBetweenShoots: 0.5
-  PlayerSpeed: 3
+  PlayerSpeed: 6
   NumberOfBonusUsed: 0
 --- !u!4 &1077971245
 Transform:

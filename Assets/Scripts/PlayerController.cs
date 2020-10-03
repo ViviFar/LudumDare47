@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     float startTimer;
     private void Start()
     {
-        speed = GameController.Instance.PlayerSpeed;
-        delayBetweenShoots = GameController.Instance.DelayBetweenShoots;
+        speed = StateMachine.Instance.PlayerSpeed;
+        delayBetweenShoots = StateMachine.Instance.DelayBetweenShoots;
         startTimer = 0;
     }
 

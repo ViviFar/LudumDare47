@@ -5,29 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : GenericSingleton<GameController>
 {
-    #region singleton
-    private static GameController instance;
-    public static GameController Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<GameController>();
-                if (instance == null)
-                {
-                    GameObject go = new GameObject();
-                    instance = go.AddComponent<GameController>();
-                    go.name = "StateMachine";
-                }
-            }
-            return instance;
-        }
-    }
-    #endregion
-
 
     public GameObject PausePanel;
     public GameObject DefeatPanel;
@@ -59,17 +38,7 @@ public class GameController : MonoBehaviour
     private bool bonusTaken = false;
     private float bonusCountdown = 0;
 
-    #region unitStats
-    public float EnemySpeed = 3.0f;
-    public float EnemySlowSpeed = 0.75f;
-    public float DelayBetweenShoots = 2.0f;
-    public float PlayerSpeed = 3.0f;
 
-    [HideInInspector]
-    public int NumberOfBonusUsed = 0;
-    
-    private float curDelayShots;
-    #endregion
 
 
     // Start is called before the first frame update
@@ -78,7 +47,6 @@ public class GameController : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         playerStartPos = player.transform.position;
         playerStartRot = player.transform.rotation;
-        curDelayShots = DelayBetweenShoots;
         Restart();
     }
 
@@ -101,7 +69,7 @@ public class GameController : MonoBehaviour
         }
 #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.W)){
-            SceneManager.LoadScene("InBetweenLevels");
+            StateMachine.Instance.currentState = GameStates.LevelWon;
         }
 #endif
     }
@@ -121,13 +89,12 @@ public class GameController : MonoBehaviour
 
     public void Defeat()
     {
-        Time.timeScale = 0;
-        DefeatPanel.SetActive(true);
+        StateMachine.Instance.currentState = GameStates.LevelLost;
     }
 
     public void Close()
     {
-        Application.Quit();
+        StateMachine.Instance.currentState = GameStates.Quitting;
     }
 
     public void Restart()
@@ -159,7 +126,7 @@ public class GameController : MonoBehaviour
         currentNbOfEnemies--;
         if (currentNbOfEnemies == 0)
         {
-            SceneManager.LoadScene("InBetweenLevels");
+            StateMachine.Instance.currentState = GameStates.LevelWon;
         }
     }
 
@@ -200,15 +167,15 @@ public class GameController : MonoBehaviour
     }
 #endregion
 
-    public void takeBonus()
-    {
-        BonusButton.interactable = false;
-        for (int i = 0; i < enemiesParent.childCount; i++)
-        {
-            enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(EnemySlowSpeed);
-        }
-        bonusCountdown = 0;
-        bonusTaken = true;
-        NumberOfBonusUsed++;
-    }
+    //public void takeBonus()
+    //{
+    //    BonusButton.interactable = false;
+    //    for (int i = 0; i < enemiesParent.childCount; i++)
+    //    {
+    //        enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(EnemySlowSpeed);
+    //    }
+    //    bonusCountdown = 0;
+    //    bonusTaken = true;
+    //    NumberOfBonusUsed++;
+    //}
 }
