@@ -70,4 +70,6 @@ public class StateMachine : MonoBehaviour
     {
         currentState = newState;
     }
+
+
 }
