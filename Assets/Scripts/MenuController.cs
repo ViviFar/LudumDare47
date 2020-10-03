@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class MenuController : MonoBehaviour
 
     public void Play()
     {
-        StateMachine.Instance.SetNextState(GameStates.Playing);
+        SceneManager.LoadScene("Game");
     }
 
     public void GoToMenu()

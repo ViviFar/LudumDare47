@@ -6,14 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform bulletParent;
-    public float speed = 3.0f;
     public float MaxLimit, MinLimit;
 
-    public float DelayBetweenShoots = 2.0f;
+    private float speed;
+    private float delayBetweenShoots;
 
     private bool canShoot = true;
     private float timeSinceShoot = 0;
 
+    private void Start()
+    {
+        speed = GameController.Instance.PlayerSpeed;
+        delayBetweenShoots = GameController.Instance.DelayBetweenShoots;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +33,7 @@ public class PlayerController : MonoBehaviour
         timeSinceShoot += Time.deltaTime;
 
         //reset the ability to shoot if cooldown is over
-        if (timeSinceShoot > DelayBetweenShoots)
+        if (timeSinceShoot > delayBetweenShoots)
         {
             canShoot = true;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
     public GameObject VictoryPanel, DefeatPanel;
     public GameObject EnemyPrefab;
     public Transform enemiesParent;
+    public float limRight, limLeft, limHeight, limLow;
 
     private Vector3 playerStartPos;
     private Quaternion playerStartRot;
@@ -48,6 +50,17 @@ public class GameController : MonoBehaviour
 
     //might have to be replaced with the state machine pause button
     private bool paused = false;
+
+    #region unitStats
+    public float EnemySpeed = 3.0f;
+    public float EnemySlowSpeed = 0.75f;
+    public float DelayBetweenShoots = 2.0f;
+    public float PlayerSpeed = 3.0f;
+
+    [HideInInspector]
+    public int NumberOfBonusUsed = 0;
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +99,7 @@ public class GameController : MonoBehaviour
 
     public void LoadMenu()
     {
-        StateMachine.Instance.currentState = GameStates.Menu;
+        SceneManager.LoadScene("Menu");
     }
 
     public void Defeat()
@@ -112,7 +125,7 @@ public class GameController : MonoBehaviour
         {
             for (int j = 0; j < numberOfEnemiesPerLine; j++)
             {
-                GameObject go = Instantiate(EnemyPrefab, new Vector3(-6 + j, 4.5f - i, 0), new Quaternion());
+                GameObject go = Instantiate(EnemyPrefab, new Vector3(limLeft + 2* j, limHeight - 2 * i, 0), new Quaternion());
                 go.transform.SetParent(enemiesParent);
             }
         }
@@ -143,7 +156,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < enemiesParent.childCount; i++)
             {
                 Transform t = enemiesParent.GetChild(i);
-                t.position = new Vector3(t.position.x + 1, t.position.y - 1, 0);
+                t.position = new Vector3(t.position.x + 1, t.position.y - 2, 0);
                 t.rotation = new Quaternion(t.rotation.x,0, t.rotation.z, t.rotation.w);
                 enemiesParent.GetChild(i).transform.rotation = t.rotation;
                 enemiesParent.GetChild(i).transform.position = t.position;
@@ -161,7 +174,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < enemiesParent.childCount; i++)
             {
                 Transform t = enemiesParent.GetChild(i);
-                t.position = new Vector3(t.position.x - 1, t.position.y - 1, 0);
+                t.position = new Vector3(t.position.x - 1, t.position.y - 2, 0);
                 t.rotation = new Quaternion(t.rotation.x, 180, t.rotation.z, t.rotation.w);
                 enemiesParent.GetChild(i).transform.rotation = t.rotation;
                 enemiesParent.GetChild(i).transform.position = t.position;

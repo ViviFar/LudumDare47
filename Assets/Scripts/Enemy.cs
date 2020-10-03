@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = StateMachine.Instance.EnemySpeed;
+        speed = GameController.Instance.EnemySpeed;
         rg = GetComponent<Rigidbody2D>();
         rg.velocity = new Vector2(speed, 0);
     }
@@ -20,15 +20,15 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x > 7 )
+        if (transform.position.x > GameController.Instance.limRight+1 )
         {
             GameController.Instance.goDownLeft(speed);
         }
-        else if (transform.position.x < -7)
+        else if (transform.position.x < GameController.Instance.limLeft-1)
         {
             GameController.Instance.goDownRight(speed);
         }
-        if(transform.position.y<= -4.5)
+        if(transform.position.y<= GameController.Instance.limLow)
         {
             GameController.Instance.Defeat();
         }
