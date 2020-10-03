@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour
     public GameObject EnemyPrefab;
     public Transform enemiesParent;
 
+    private Vector3 playerStartPos;
+    private Quaternion playerStartRot;
+    private PlayerController player;
+
     [SerializeField]
     private int numberOfEnemiesMax = 16;
 
@@ -39,12 +43,18 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int numberOfEnemiesPerLine = 4;
 
+    //used to make sur we only make the enemies go down once each time they arrive at the end of the line
+    private bool goingRight = true;
+
     //might have to be replaced with the state machine pause button
     private bool paused = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<PlayerController>();
+        playerStartPos = player.transform.position;
+        playerStartRot = player.transform.rotation;
         restart();
     }
 
@@ -66,6 +76,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    #region pauseButtonActions
     public void resume()
     {
         paused = false;
@@ -77,7 +88,12 @@ public class GameController : MonoBehaviour
     {
         StateMachine.Instance.currentState = GameStates.Menu;
     }
-    
+
+    public void Defeat()
+    {
+        Time.timeScale = 0;
+        DefeatPanel.SetActive(true);
+    }
 
     public void Close()
     {
@@ -86,6 +102,8 @@ public class GameController : MonoBehaviour
 
     public void restart()
     {
+        player.transform.position = playerStartPos;
+        player.transform.rotation = playerStartRot;
         Destroy(enemiesParent.gameObject);
         GameObject newParent = new GameObject();
         enemiesParent = newParent.transform;
@@ -104,7 +122,9 @@ public class GameController : MonoBehaviour
         DefeatPanel.SetActive(false);
         resume();
     }
+    #endregion
 
+    #region enemyRelatedFunctions
     public void EnemyKilled()
     {
         currentNbOfEnemies--;
@@ -114,9 +134,45 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void Defeat()
+    public void goDownRight(float speed)
     {
-        Time.timeScale = 0;
-        DefeatPanel.SetActive(true);
+        if (!goingRight)
+        {
+            goingRight = true;
+
+            for (int i = 0; i < enemiesParent.childCount; i++)
+            {
+                Transform t = enemiesParent.GetChild(i);
+                t.position = new Vector3(t.position.x + 1, t.position.y - 1, 0);
+                t.rotation = new Quaternion(t.rotation.x,0, t.rotation.z, t.rotation.w);
+                enemiesParent.GetChild(i).transform.rotation = t.rotation;
+                enemiesParent.GetChild(i).transform.position = t.position;
+                enemiesParent.GetChild(i).GetComponent<Enemy>().rg.velocity = new Vector2(speed, 0);
+            }
+        }
+
+    }
+
+    public void goDownLeft(float speed)
+    {
+        if (goingRight)
+        {
+            goingRight = false;
+            for (int i = 0; i < enemiesParent.childCount; i++)
+            {
+                Transform t = enemiesParent.GetChild(i);
+                t.position = new Vector3(t.position.x - 1, t.position.y - 1, 0);
+                t.rotation = new Quaternion(t.rotation.x, 180, t.rotation.z, t.rotation.w);
+                enemiesParent.GetChild(i).transform.rotation = t.rotation;
+                enemiesParent.GetChild(i).transform.position = t.position;
+                enemiesParent.GetChild(i).GetComponent<Enemy>().rg.velocity = new Vector2(-speed, 0);
+            }
+        }
+    }
+    #endregion
+
+    public void takeBonus()
+    {
+
     }
 }

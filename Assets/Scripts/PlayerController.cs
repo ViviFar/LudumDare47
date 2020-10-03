@@ -17,21 +17,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //arbitrary decision: if the player enters both right and left arrows, right one will prevail
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Vector3 pos = transform.position;
-            pos.x += speed * Time.deltaTime;
-            pos.x = Mathf.Min(MaxLimit, pos.x);
-            transform.position = pos;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Vector3 pos = transform.position;
-            pos.x -= speed * Time.deltaTime;
-            pos.x = Mathf.Max(MinLimit, pos.x);
-            transform.position = pos;
-        }
+
+        Vector3 pos = transform.position;
+        pos.x += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        pos.x = Mathf.Min(MaxLimit, pos.x);
+        pos.x = Mathf.Max(MinLimit, pos.x);
+        transform.position = pos;
+
 
         timeSinceShoot += Time.deltaTime;
 

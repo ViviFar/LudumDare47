@@ -33,6 +33,12 @@ public class StateMachine : MonoBehaviour
     [HideInInspector]
     public bool Paused = false;
 
+    public float EnemySpeed = 3.0f;
+
+
+    [HideInInspector]
+    public int NumberOfBonusUsed = 0;
+
     // Start is called before the first frame update
     void Start()
     {

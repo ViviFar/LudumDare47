@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 2;
+    private float speed;
 
-    private Rigidbody2D rg;
+    [HideInInspector]
+    public Rigidbody2D rg;
 
     // Start is called before the first frame update
     void Start()
     {
+        speed = StateMachine.Instance.EnemySpeed;
         rg = GetComponent<Rigidbody2D>();
         rg.velocity = new Vector2(speed, 0);
     }
@@ -20,20 +22,21 @@ public class Enemy : MonoBehaviour
     {
         if (transform.position.x > 7 )
         {
-            transform.position = new Vector3(transform.position.x-1, transform.position.y - 1, 0);
-            speed *= -1;
-            rg.velocity = new Vector2(speed, 0);
+            GameController.Instance.goDownLeft(speed);
         }
         else if (transform.position.x < -7)
         {
-            transform.position = new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
-            speed *= -1;
-            rg.velocity = new Vector2(speed, 0);
+            GameController.Instance.goDownRight(speed);
         }
         if(transform.position.y<= -4.5)
         {
             GameController.Instance.Defeat();
         }
     }
-    
+
+    public void UpdateSpeed(float newSpeed)
+    {
+
+    }
+
 }
