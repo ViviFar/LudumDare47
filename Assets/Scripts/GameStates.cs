@@ -5,5 +5,7 @@ using UnityEngine;
 public enum GameStates
 {
     Menu,
-    Playing
+    Playing,
+    GameLost,
+    GameOver
 }

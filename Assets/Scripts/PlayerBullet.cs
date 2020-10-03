@@ -5,13 +5,12 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public float speed = 4.0f;
-    
 
-    private void Update()
+    private Rigidbody2D rg;
+    void Start()
     {
-        Vector3 pos = transform.position;
-        pos.y += speed * Time.deltaTime;
-        transform.position = pos;
+        rg = GetComponent<Rigidbody2D>();
+        rg.velocity = new Vector2(0, speed);
         Destroy(gameObject, 5);
     }
 
@@ -19,6 +18,7 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            GameController.Instance.EnemyKilled();
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
