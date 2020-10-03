@@ -52,6 +52,7 @@ public class StateMachine : MonoBehaviour
                     onEnterPlayingState();
                     break;
             }
+            previousState = currentState;
         }
     }
 
