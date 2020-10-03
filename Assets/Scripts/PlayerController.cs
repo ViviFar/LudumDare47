@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletParent;
     public float speed = 3.0f;
+    public float MaxLimit, MinLimit;
 
     public float DelayBetweenShoots = 2.0f;
 
@@ -21,12 +22,14 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 pos = transform.position;
             pos.x += speed * Time.deltaTime;
+            pos.x = Mathf.Min(MaxLimit, pos.x);
             transform.position = pos;
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             Vector3 pos = transform.position;
             pos.x -= speed * Time.deltaTime;
+            pos.x = Mathf.Max(MinLimit, pos.x);
             transform.position = pos;
         }
 

@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     public GameObject PausePanel;
 
+    //might have to be replaced with the state machine pause button
     private bool paused = false;
 
     // Start is called before the first frame update
