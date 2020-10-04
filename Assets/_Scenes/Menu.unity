@@ -314,7 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d948925601aef4cbc7a1a70686e8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asources: []
+  MainSource: {fileID: 1256665325}
+  loopedClip: {fileID: 8300000, guid: 686ea7d5660759246ad3165de34b0c90, type: 3}
 --- !u!4 &131265728
 Transform:
   m_ObjectHideFlags: 0
