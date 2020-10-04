@@ -6,7 +6,6 @@ public enum GameStates
 {
     Menu,
     Playing,
-    LevelLost,
     GameOver,
     Quitting,
     LevelWon

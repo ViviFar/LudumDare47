@@ -11,10 +11,10 @@ public class StateMachine : GenericSingleton<StateMachine>
     private GameStates previousState;
 
     #region unitStats
-    public float EnemySpeed = 3.0f;
+    public float EnemySpeed = 5.0f;
     public float EnemySlowSpeed = 0.75f;
-    public float DelayBetweenShoots = 2.0f;
-    public float PlayerSpeed = 3.0f;
+    public float DelayBetweenShoots = 0.5f;
+    public float PlayerSpeed = 7.0f;
 
     [HideInInspector]
     public int NumberOfBonusUsed = 0;
@@ -49,9 +49,6 @@ public class StateMachine : GenericSingleton<StateMachine>
                 case GameStates.GameOver:
                     onGameOverStateEnter();
                     break;
-                case GameStates.LevelLost:
-                    onLevelLostStateEnter();
-                    break;
                 case GameStates.Quitting:
                     onQuittingStateEnter();
                     break;
@@ -74,11 +71,7 @@ public class StateMachine : GenericSingleton<StateMachine>
     {
         Application.Quit();
     }
-
-    private void onLevelLostStateEnter()
-    {
-        SceneManager.LoadScene("InBetweenLevels");
-    }
+    
 
     private void onGameOverStateEnter()
     {

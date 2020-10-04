@@ -15,6 +15,8 @@ public class GameController : GenericSingleton<GameController>
     public Button BonusButton;
     public float limRight, limLeft, limHeight, limLow;
 
+    public Image img;
+
     private Vector3 playerStartPos;
     private Quaternion playerStartRot;
     private PlayerController player;
@@ -71,6 +73,9 @@ public class GameController : GenericSingleton<GameController>
         if(Input.GetKeyDown(KeyCode.W)){
             StateMachine.Instance.currentState = GameStates.LevelWon;
         }
+        if(Input.GetKeyDown(KeyCode.L)){
+            Defeat();
+        }
 #endif
     }
 
@@ -89,12 +94,20 @@ public class GameController : GenericSingleton<GameController>
 
     public void Defeat()
     {
-        StateMachine.Instance.currentState = GameStates.LevelLost;
+        img.gameObject.SetActive(true);
+        img.GetComponent<Fade>().fading = true;
+        //StateMachine.Instance.currentState = GameStates.LevelLost;
+        StartCoroutine(LaunchRestart());
     }
 
     public void Close()
     {
         StateMachine.Instance.currentState = GameStates.Quitting;
+    }
+    private IEnumerator LaunchRestart()
+    {
+        yield return new WaitForSeconds(3);
+        Restart();
     }
 
     public void Restart()
@@ -116,6 +129,9 @@ public class GameController : GenericSingleton<GameController>
         PausePanel.SetActive(false);
         currentNbOfEnemies = numberOfEnemiesMax;
         DefeatPanel.SetActive(false);
+        img.GetComponent<Fade>().fading = false;
+        goingRight = true;
+        //img.gameObject.SetActive(false);
         resume();
     }
 #endregion
