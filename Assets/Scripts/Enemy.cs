@@ -43,7 +43,14 @@ public class Enemy : MonoBehaviour
 
     public void UpdateSpeed(float newSpeed)
     {
-
+        if (GameController.Instance.GoingRight)
+        {
+            rg.velocity = new Vector2(newSpeed, 0);
+        }
+        else
+        {
+            rg.velocity = new Vector2(-newSpeed, 0);
+        }
     }
 
 }

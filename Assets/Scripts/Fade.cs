@@ -37,7 +37,7 @@ public class Fade : MonoBehaviour
         }
         else
         {
-            img.CrossFadeAlpha(0, 2.0f, false);
+            img.CrossFadeAlpha(0, 0.5f, false);
             if (!shuttingDown)
             {
                 shuttingDown = true;

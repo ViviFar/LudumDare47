@@ -32,6 +32,7 @@ public class GameController : GenericSingleton<GameController>
 
     //used to make sur we only make the enemies go down once each time they arrive at the end of the line
     private bool goingRight = true;
+    public bool GoingRight { get { return goingRight; } }
 
     //might have to be replaced with the state machine pause button
     private bool paused = false;
@@ -41,7 +42,8 @@ public class GameController : GenericSingleton<GameController>
     private float bonusCountdown = 0;
 
 
-
+    public Text CountdownText;
+    private float startCountdown = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,16 @@ public class GameController : GenericSingleton<GameController>
     // Update is called once per frame
     void Update()
     {
+        if (startCountdown > 0)
+        {
+            startCountdown -= Time.deltaTime;
+            int cd = (int)startCountdown+1;
+            CountdownText.text = cd.ToString();
+        }
+        else
+        {
+            CountdownText.gameObject.SetActive(false);
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!paused)
@@ -104,6 +116,7 @@ public class GameController : GenericSingleton<GameController>
     {
         StateMachine.Instance.currentState = GameStates.Quitting;
     }
+
     private IEnumerator LaunchRestart()
     {
         yield return new WaitForSeconds(3);
@@ -131,6 +144,8 @@ public class GameController : GenericSingleton<GameController>
         DefeatPanel.SetActive(false);
         img.GetComponent<Fade>().fading = false;
         goingRight = true;
+        startCountdown = 3;
+        CountdownText.gameObject.SetActive(true);
         //img.gameObject.SetActive(false);
         resume();
     }
@@ -181,17 +196,29 @@ public class GameController : GenericSingleton<GameController>
             }
         }
     }
-#endregion
+    #endregion
 
-    //public void takeBonus()
-    //{
-    //    BonusButton.interactable = false;
-    //    for (int i = 0; i < enemiesParent.childCount; i++)
-    //    {
-    //        enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(EnemySlowSpeed);
-    //    }
-    //    bonusCountdown = 0;
-    //    bonusTaken = true;
-    //    NumberOfBonusUsed++;
-    //}
+    public void TakeBonus()
+    {
+        StateMachine.Instance.NumberOfBonusUsed++;
+        if(StateMachine.Instance.NumberOfBonusUsed == StateMachine.Instance.MaxBonusUsage)
+        {
+            StateMachine.Instance.currentState = GameStates.GameOver;
+            return;
+        }
+        for (int i = 0; i < enemiesParent.childCount; i++)
+        {
+            enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(StateMachine.Instance.EnemySlowSpeed);
+        }
+    }
+
+    public void EndBonus()
+    {
+        for (int i = 0; i < enemiesParent.childCount; i++)
+        {
+            enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(StateMachine.Instance.EnemySpeed);
+        }
+        StateMachine.Instance.curDelayShots += 0.1f;
+    }
+
 }

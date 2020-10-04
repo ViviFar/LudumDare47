@@ -22,7 +22,7 @@ public class GenericSingleton<T> : MonoBehaviour where T: Component
             return instance;
         }
     }
-    private void Awake()
+    protected virtual void Awake()
     {
         if (instance != null)
         {

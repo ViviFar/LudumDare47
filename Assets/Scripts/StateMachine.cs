@@ -13,24 +13,38 @@ public class StateMachine : GenericSingleton<StateMachine>
     #region unitStats
     public float EnemySpeed = 5.0f;
     public float EnemySlowSpeed = 0.75f;
-    public float DelayBetweenShoots = 0.5f;
+    [SerializeField]
+    private float DelayBetweenShoots = 0.5f;
     public float PlayerSpeed = 7.0f;
 
+    public float BonusCd = 3;
+    [SerializeField]
+    private float BaseBonusDuration = 5;
+    [HideInInspector]
+    public float CurrentBonusDuration;
+
+    public int MaxBonusUsage = 5;
     [HideInInspector]
     public int NumberOfBonusUsed = 0;
 
-    private float curDelayShots;
+    [HideInInspector]
+    public float curDelayShots;
     #endregion
 
     int currentLevel = 0;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+        CurrentBonusDuration = BaseBonusDuration;
+        curDelayShots = DelayBetweenShoots;
+        previousState = currentState;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
-        curDelayShots = DelayBetweenShoots;
-        previousState = currentState;
     }
 
     // Update is called once per frame
