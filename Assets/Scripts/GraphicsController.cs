@@ -43,9 +43,37 @@ public class GraphicsController : GenericSingleton<GraphicsController>
     private void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Keypad1))
         {
             anim.SetInteger("drugLvl", 1);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            anim.SetInteger("drugLvl", 2);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            anim.SetInteger("drugLvl", 3);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            anim.SetInteger("drugLvl", 4);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            anim.SetInteger("drugLvl", 5);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            anim.SetInteger("drugLvl", 6);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            anim.SetInteger("drugLvl", 7);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            anim.SetInteger("drugLvl", 0);
         }
 
 

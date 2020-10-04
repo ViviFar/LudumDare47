@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EndCutScene : MonoBehaviour
 {
-    private float cutsceneDuration = 5.5f;
+    private float cutsceneDuration = 5.0f;
 
 
     // Start is called before the first frame update
