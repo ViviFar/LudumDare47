@@ -219,6 +219,7 @@ public class GameController : GenericSingleton<GameController>
             enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(StateMachine.Instance.EnemySpeed);
         }
         StateMachine.Instance.curDelayShots += 0.1f;
+        player.UpdateAs(StateMachine.Instance.curDelayShots);
     }
 
 }

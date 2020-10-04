@@ -32,16 +32,24 @@ public class StateMachine : GenericSingleton<StateMachine>
     #endregion
 
     int currentLevel = 0;
+    public int CurrentLevel { get { return currentLevel; } }
 
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+        restartGame();
+    }
+
+
+    public  void restartGame()
+    {
+        currentLevel = 0;
         CurrentBonusDuration = BaseBonusDuration;
         curDelayShots = DelayBetweenShoots;
         previousState = currentState;
+        NumberOfBonusUsed = 0;
     }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +86,7 @@ public class StateMachine : GenericSingleton<StateMachine>
 
     private void onLevelWonStateEnter()
     {
+        currentLevel++;
         SceneManager.LoadScene("InBetweenLevels");
     }
 
@@ -100,9 +109,6 @@ public class StateMachine : GenericSingleton<StateMachine>
     private void onMenuStateEnter()
     {
         SceneManager.LoadScene("Menu");
-        //resetting stats so that new game isnt impacted by older one
-        currentLevel = 0;
-        curDelayShots = DelayBetweenShoots;
-        NumberOfBonusUsed = 0;
+        restartGame();
     }
 }

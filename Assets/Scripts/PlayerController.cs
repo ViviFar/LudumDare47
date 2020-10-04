@@ -53,4 +53,9 @@ public class PlayerController : MonoBehaviour
             timeSinceShoot = 0;
         }
     }
+
+    public void UpdateAs(float newAS)
+    {
+        delayBetweenShoots = newAS;
+    }
 }

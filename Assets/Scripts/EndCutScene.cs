@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class EndCutScene : MonoBehaviour
 {
+    private float cutsceneDuration = 5.5f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +17,7 @@ public class EndCutScene : MonoBehaviour
 
     private IEnumerator LoadNextScene()
     {
-        yield return new WaitForSeconds(4.8f);
+        yield return new WaitForSeconds(cutsceneDuration);
         StateMachine.Instance.currentState = GameStates.Playing;
     }
 }
