@@ -15,6 +15,7 @@ public class StateMachine : GenericSingleton<StateMachine>
     public float EnemySlowSpeed = 0.75f;
     [SerializeField]
     private float DelayBetweenShoots = 0.5f;
+    public float BaseDelayBetweenShots { get { return DelayBetweenShoots; } }
     public float PlayerSpeed = 7.0f;
 
     public float BonusCd = 3;
@@ -86,6 +87,7 @@ public class StateMachine : GenericSingleton<StateMachine>
 
     private void onLevelWonStateEnter()
     {
+        GameController.Instance.EndBonus();
         currentLevel++;
         SceneManager.LoadScene("InBetweenLevels");
     }

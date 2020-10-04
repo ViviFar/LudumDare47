@@ -211,6 +211,8 @@ public class GameController : GenericSingleton<GameController>
             enemiesParent.GetChild(i).GetComponent<Enemy>().UpdateSpeed(StateMachine.Instance.EnemySlowSpeed);
         }
         GraphicsController.Instance.UpdateSprites(true);
+        SoundManager.Instance.launchHigh();
+        player.UpdateAs(StateMachine.Instance.BaseDelayBetweenShots);
     }
 
     public void EndBonus()
@@ -223,6 +225,7 @@ public class GameController : GenericSingleton<GameController>
         StateMachine.Instance.CurrentBonusDuration -= 1;
         player.UpdateAs(StateMachine.Instance.curDelayShots);
         GraphicsController.Instance.UpdateSprites(false);
+        SoundManager.Instance.ChangeMainTheme(StateMachine.Instance.NumberOfBonusUsed / 2);
     }
 
 }

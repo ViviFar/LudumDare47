@@ -5,9 +5,10 @@ using UnityEngine;
 public class SoundManager : GenericSingleton<SoundManager>
 {
     public AudioSource MainSource;
+    public AudioSource HighSource;
     
-    public AudioClip loopedClip;
-    
+    public AudioClip[] loopedClip;
+    public AudioClip highClip;
 
     protected override void Awake()
     {
@@ -17,13 +18,30 @@ public class SoundManager : GenericSingleton<SoundManager>
 
     private void Start()
     {
-        MainSource.clip = loopedClip;
+        MainSource.clip = loopedClip[0];
         MainSource.loop = true;
         MainSource.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeMainTheme(int newTheme)
     {
+        if (newTheme < loopedClip.Length)
+        {
+            MainSource.clip = loopedClip[newTheme];
+            MainSource.loop = true;
+            MainSource.Play();
+            HighSource.loop = false;
+            HighSource.Stop();
+        }
+    }
+
+    public void launchHigh()
+    {
+        MainSource.clip = loopedClip [0];
+        MainSource.loop = true;
+        MainSource.Play();
+        HighSource.clip = highClip;
+        HighSource.loop = true;
+        HighSource.Play();
     }
 }
