@@ -19,11 +19,11 @@ public class StateMachine : GenericSingleton<StateMachine>
 
     public float BonusCd = 3;
     [SerializeField]
-    private float BaseBonusDuration = 5;
+    private float BaseBonusDuration = 10;
     [HideInInspector]
     public float CurrentBonusDuration;
 
-    public int MaxBonusUsage = 5;
+    public int MaxBonusUsage = 7;
     [HideInInspector]
     public int NumberOfBonusUsed = 0;
 
