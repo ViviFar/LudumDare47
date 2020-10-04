@@ -23,7 +23,7 @@ public class StateMachine : GenericSingleton<StateMachine>
     [HideInInspector]
     public float CurrentBonusDuration;
 
-    public int MaxBonusUsage = 7;
+    public int MaxBonusUsage = 8;
     [HideInInspector]
     public int NumberOfBonusUsed = 0;
 

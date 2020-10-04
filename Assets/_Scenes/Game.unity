@@ -183,12 +183,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3cdf96746e4c41749a447f9f5cb58f9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f807fd5213a075349a9045555cc2e137, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.0800004, y: 7.5700006}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -365,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &75235083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &371566368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,7 +1495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972084971}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.938445, y: 4.6495094, z: 0.012888082}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1514,9 +1514,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableBees:
-  - {fileID: 21300000, guid: 3cdf96746e4c41749a447f9f5cb58f9f, type: 3}
+  - {fileID: 21300000, guid: f807fd5213a075349a9045555cc2e137, type: 3}
+  - {fileID: 21300000, guid: a5178dc96b118734baf13bb76013a1e1, type: 3}
+  - {fileID: 21300000, guid: 38d34db088680504487f35813ca3e15a, type: 3}
+  - {fileID: 21300000, guid: a1c1df3042a465c449ad99afb3990500, type: 3}
+  - {fileID: 21300000, guid: 1f030c271e0831d469c9cac3be2aee98, type: 3}
+  - {fileID: 21300000, guid: ef9bbfe61d4a44d4cb254592171b2d2f, type: 3}
+  - {fileID: 21300000, guid: 02d7f51b29c32be4fb03f18281297ad7, type: 3}
+  - {fileID: 21300000, guid: 6c9fb57d7d5382d4e9267e7e4bd182b5, type: 3}
   availableBG:
   - {fileID: 21300000, guid: a90cfd17156fae347b47494d25cc72fc, type: 3}
+  - {fileID: 21300000, guid: 1a9f8cdc73bade643a8c0d24e9366c0c, type: 3}
+  - {fileID: 21300000, guid: 66201d971c09c584abae027c6dbcfd1e, type: 3}
+  - {fileID: 21300000, guid: 57fa8f3b10c134e4eba87aab78277de3, type: 3}
+  - {fileID: 21300000, guid: a1e091952df389d48ba0218bdc539688, type: 3}
+  - {fileID: 21300000, guid: fc4f6c33403f5264db4cfe5dc5b4e3a3, type: 3}
+  - {fileID: 21300000, guid: 84c1621b08a55e94b85c9a5a40b5b916, type: 3}
+  - {fileID: 21300000, guid: fea29828ac8bf0d4b95d361aa556ae4e, type: 3}
+  DruggedBee: {fileID: 21300000, guid: f34add7aa8ef81b4db3872ce893810b3, type: 3}
   bee: {fileID: 41253862}
   background: {fileID: 293258132}
 --- !u!1 &1037862028
@@ -2302,7 +2317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1508074652
 MonoBehaviour:
   m_ObjectHideFlags: 0
