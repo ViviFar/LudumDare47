@@ -30,10 +30,22 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Vector3 pos = transform.position;
-        pos.x += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        float f = Input.GetAxis("Horizontal");
+        pos.x += f * speed * Time.deltaTime;
+
+        Quaternion q = transform.rotation;
+        if (f < 0)
+        {
+            q.y = 180;
+        }
+        else if(f> 0)
+        {
+            q.y = 0;
+        }
         pos.x = Mathf.Min(MaxLimit, pos.x);
         pos.x = Mathf.Max(MinLimit, pos.x);
         transform.position = pos;
+        transform.rotation = q;
 
 
         timeSinceShoot += Time.deltaTime;
