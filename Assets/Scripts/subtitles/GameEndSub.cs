@@ -17,13 +17,13 @@ public class GameEndSub : Subtitles
         yield return new WaitForSeconds(3);
         textBox.text = "We may never know the fate of the bees";
         yield return new WaitForSeconds(3);
-        textBox.text = "Our bee fought breavely, as much as can be";
+        textBox.text = "Our bee fought bravely, as much as can be";
         yield return new WaitForSeconds(3);
         textBox.text = "But spiraled to the end, unknowingly";
         yield return new WaitForSeconds(3);
         textBox.text = "The nectar was here, helpful and yummy";
         yield return new WaitForSeconds(3);
-        textBox.text = "A welcomed ally in desperate times";
+        textBox.text = "A welcome ally in desperate times";
         yield return new WaitForSeconds(2);
         textBox.text = "It just lacked something, the slightest detail";
         yield return new WaitForSeconds(3);

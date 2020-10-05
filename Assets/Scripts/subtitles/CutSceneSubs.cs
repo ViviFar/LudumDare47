@@ -16,15 +16,15 @@ public class CutSceneSubs : Subtitles
         switch (StateMachine.Instance.CurrentLevel % 6)
         {
             case 1:
-                textBox.text = "The moths were near but Lily was here";
+                textBox.text = "The moths were near but Lily the bee was here";
                 yield return new WaitForSeconds(3);
                 break;
             case 2:
-                textBox.text = "Scary as they may be, They're no match for Lily";
+                textBox.text = "Scary as they may be, They're still no match for Lily";
                 yield return new WaitForSeconds(3);
                 break;
             case 3:
-                textBox.text = "The hideous horde advance but the lone be holds her ground";
+                textBox.text = "The hideous horde advances but the lone be holds her ground";
                 yield return new WaitForSeconds(3);
                 break;
             case 4:
@@ -52,7 +52,7 @@ public class CutSceneSubs : Subtitles
                 textBox.text = "It's just to keep the moths away that Lily needs a little help";
                 break;
             case 3:
-                textBox.text = "The nectare... Just one more sip...";
+                textBox.text = "The nectar... Just one more sip...";
                 yield return new WaitForSeconds(2);
                 textBox.text = "Just a bit more before the sleep";
                 yield return new WaitForSeconds(3);

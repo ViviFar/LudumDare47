@@ -10,11 +10,14 @@ public class SbtIntro : Subtitles
         base.Sequence();
         if (!StateMachine.Instance.IntroductionPlayed)
         {
-            textBox.text = "The death's-head moth are here again";
+            textBox.text = "The death's-head moths are here again";
+            Debug.Log("first line");
             yield return new WaitForSeconds(3);
-            textBox.text = "Menacing the have and the bees inside";
+            textBox.text = "Menacing the hive and the bees inside";
+            Debug.Log("second line");
             yield return new WaitForSeconds(4);
             textBox.text = "Nothing more than appetite in their mind";
+            Debug.Log("third line");
             yield return new WaitForSeconds(3);
             textBox.text = "It's time for a bee to rise and to slain";
             yield return new WaitForSeconds(3);
@@ -22,7 +25,7 @@ public class SbtIntro : Subtitles
             yield return new WaitForSeconds(1);
             textBox.text = "A valiant hero, a bee named Lily";
             yield return new WaitForSeconds(3);
-            textBox.text = "Aided by nectar, gifted by her queen";
+            textBox.text = "Aided by nectar, gifted by the queen";
             yield return new WaitForSeconds(3);
         }
         textBox.text = "She will protect all, the hive will be clean";
