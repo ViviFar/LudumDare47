@@ -3088,7 +3088,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: USE BONUS
+  m_Text: DRINK NECTAR
 --- !u!222 &1353700223
 CanvasRenderer:
   m_ObjectHideFlags: 0

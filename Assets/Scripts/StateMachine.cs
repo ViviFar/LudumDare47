@@ -14,8 +14,8 @@ public class StateMachine : GenericSingleton<StateMachine>
     public float EnemySpeed = 5.0f;
     public float EnemySlowSpeed = 0.75f;
     [SerializeField]
-    private float DelayBetweenShoots = 0.5f;
-    public float BaseDelayBetweenShots { get { return DelayBetweenShoots; } }
+    private float delayBetweenShoots = 0.5f;
+    public float BaseDelayBetweenShots { get { return delayBetweenShoots; } }
     public float PlayerSpeed = 7.0f;
 
     [HideInInspector]
@@ -51,7 +51,7 @@ public class StateMachine : GenericSingleton<StateMachine>
         IntroductionPlayed = false;
         currentLevel = 0;
         CurrentBonusDuration = BaseBonusDuration;
-        curDelayShots = DelayBetweenShoots;
+        curDelayShots = delayBetweenShoots;
         previousState = currentState;
         NumberOfBonusUsed = 0;
         SoundManager.Instance.ChangeMainTheme(0);
