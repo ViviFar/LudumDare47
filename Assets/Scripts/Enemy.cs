@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = StateMachine.Instance.EnemySpeed + (0.5f * StateMachine.Instance.CurrentLevel);
+        speed = StateMachine.Instance.EnemySpeed + (0.75f * StateMachine.Instance.CurrentLevel);
         rg = GetComponent<Rigidbody2D>();
         StartCoroutine(WaitBeforeLaunch());
     }
@@ -52,5 +52,7 @@ public class Enemy : MonoBehaviour
             rg.velocity = new Vector2(-newSpeed, 0);
         }
     }
+
+
 
 }

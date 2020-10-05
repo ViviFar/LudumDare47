@@ -35,7 +35,7 @@ public class PlayerBullet : MonoBehaviour
         rg.velocity = new Vector2(0, 0);
         Destroy(rg);
         Destroy(GetComponent<BoxCollider2D>());
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
 }

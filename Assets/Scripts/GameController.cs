@@ -47,6 +47,9 @@ public class GameController : GenericSingleton<GameController>
     // Start is called before the first frame update
     void Start()
     {
+        int moreEnemies = (StateMachine.Instance.CurrentLevel + 1) / 3;
+        numberOfEnemiesMax += 4 * moreEnemies;
+        numberOfEnemiesPerLine= 4 + (StateMachine.Instance.CurrentLevel +1) / 3;
         player = FindObjectOfType<PlayerController>();
         playerStartPos = player.transform.position;
         playerStartRot = player.transform.rotation;

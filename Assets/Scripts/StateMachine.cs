@@ -54,6 +54,7 @@ public class StateMachine : GenericSingleton<StateMachine>
         curDelayShots = DelayBetweenShoots;
         previousState = currentState;
         NumberOfBonusUsed = 0;
+        SoundManager.Instance.ChangeMainTheme(0);
     }
     // Start is called before the first frame update
     void Start()
@@ -91,14 +92,7 @@ public class StateMachine : GenericSingleton<StateMachine>
             previousState = currentState;
         }
 
-        //allow player to skip cinematics
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (currentState == GameStates.Introduction)
-            {
-                //SoundManager.Instance.StopNar(SoundManager.Instance.IntroFull, GameStates.Playing);
-            }
-        }
+
     }
 
     private void onIntroductionStateEnter()
