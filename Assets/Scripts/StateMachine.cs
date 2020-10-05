@@ -90,12 +90,21 @@ public class StateMachine : GenericSingleton<StateMachine>
             }
             previousState = currentState;
         }
+
+        //allow player to skip cinematics
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (currentState == GameStates.Introduction)
+            {
+                //SoundManager.Instance.StopNar(SoundManager.Instance.IntroFull, GameStates.Playing);
+            }
+        }
     }
 
     private void onIntroductionStateEnter()
     {
         SceneManager.LoadScene("Introduction");
-        SoundManager.Instance.PlayNarator(SoundManager.Instance.IntroFull);
+        SoundManager.Instance.PlayNarator(SoundManager.Instance.IntroFull, GameStates.Playing);
     }
 
     private void onLevelWonStateEnter()
@@ -105,7 +114,7 @@ public class StateMachine : GenericSingleton<StateMachine>
         if (currentLevel % 6 == 0)
         {
             SceneManager.LoadScene("Introduction");
-            SoundManager.Instance.PlayNarator(SoundManager.Instance.IntroReduced);
+            SoundManager.Instance.PlayNarator(SoundManager.Instance.IntroReduced, GameStates.Playing);
         }
         else
         {
@@ -113,7 +122,7 @@ public class StateMachine : GenericSingleton<StateMachine>
             AudioClip[] clips = new AudioClip[2];
             clips[0] = SoundManager.Instance.nvx[(CurrentLevel % 6) - 1];
             clips[1] = SoundManager.Instance.nectars[NumberOfBonusUsed / 2];
-            SoundManager.Instance.PlayNarator(clips);
+            SoundManager.Instance.PlayNarator(clips, GameStates.Playing);
         }
     }
 
@@ -126,12 +135,13 @@ public class StateMachine : GenericSingleton<StateMachine>
     private void onGameOverStateEnter()
     {
         SceneManager.LoadScene("GameOver");
-        SoundManager.Instance.PlayNarator(SoundManager.Instance.conclusion);
+        SoundManager.Instance.PlayNarator(SoundManager.Instance.conclusion, GameStates.Menu);
     }
 
     private void onPlayingStateEnter()
     {
         SceneManager.LoadScene("Game");
+        SoundManager.Instance.MainSource.volume = 0.4f;
     }
 
     private void onMenuStateEnter()

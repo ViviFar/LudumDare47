@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,32 +54,28 @@ public class SoundManager : GenericSingleton<SoundManager>
         HighSource.Play();
     }
 
-    public void PlayNarator(AudioClip clip)
+    public void PlayNarator(AudioClip clip, GameStates nextState)
     {
-        StartCoroutine(PlayClip(clip));
+        StartCoroutine(PlayClip(clip, nextState));
     }
 
-    public void PlayNarator(AudioClip[] clips)
+    public void PlayNarator(AudioClip[] clips, GameStates nextState)
     {
-        StartCoroutine(PlayClips(clips));
+        StartCoroutine(PlayClips(clips, nextState));
     }
 
 
-    private IEnumerator PlayClip(AudioClip clip)
+    private IEnumerator PlayClip(AudioClip clip, GameStates nextState)
     {
         SoundManager.Instance.MainSource.volume = 0.1f;
         Narator.clip = clip;
         Narator.loop = false;
         Narator.Play();
         yield return new WaitForSeconds(Narator.clip.length);
-        SoundManager.Instance.MainSource.volume = 0.5f;
-        yield return new WaitForSeconds(0.5f);
-        SoundManager.Instance.MainSource.volume = 0.8f;
-        yield return new WaitForSeconds(0.5f);
-        SoundManager.Instance.MainSource.volume = 1;
-        StateMachine.Instance.currentState = GameStates.Playing;
+        SoundManager.Instance.MainSource.volume = 0.4f;
+        StateMachine.Instance.currentState = nextState;
     }
-    private IEnumerator PlayClips(AudioClip[] clips)
+    private IEnumerator PlayClips(AudioClip[] clips, GameStates nextState)
     {
         SoundManager.Instance.MainSource.volume = 0.1f;
         foreach (AudioClip clip in clips)
@@ -88,48 +85,24 @@ public class SoundManager : GenericSingleton<SoundManager>
             Narator.Play();
             yield return new WaitForSeconds(Narator.clip.length);
         }
-        SoundManager.Instance.MainSource.volume = 0.5f;
-        yield return new WaitForSeconds(0.5f);
-        SoundManager.Instance.MainSource.volume = 0.8f;
-        yield return new WaitForSeconds(0.5f);
-        SoundManager.Instance.MainSource.volume = 1;
-        StateMachine.Instance.currentState = GameStates.Playing;
+        SoundManager.Instance.MainSource.volume = 0.4f;
+        StateMachine.Instance.currentState = nextState;
     }
 
-    //private IEnumerator PlayClips()
-    //{
-    //    Narator.clip = nvx[(StateMachine.Instance.CurrentLevel % 6) - 1];
-    //    Narator.Play();
-    //    yield return new WaitForSeconds(Narator.clip.length);
-    //    Narator.clip = nectars[StateMachine.Instance.NumberOfBonusUsed / 2];
-    //    Narator.Play();
-    //    yield return new WaitForSeconds(Narator.clip.length);
-    //    SoundManager.Instance.MainSource.volume = 0.5f;
-    //    yield return new WaitForSeconds(0.5f);
-    //    SoundManager.Instance.MainSource.volume = 0.8f;
-    //    yield return new WaitForSeconds(0.5f);
-    //    SoundManager.Instance.MainSource.volume = 1;
-    //    StateMachine.Instance.currentState = GameStates.Playing;
-    //}
+    public void StopNar(AudioClip clip, GameStates nextState)
+    {
+        Narator.Stop();
+        SoundManager.Instance.MainSource.volume = 0.4f;
+        StopCoroutine(PlayClip(clip, nextState));
+        StateMachine.Instance.currentState = nextState;
+    }
 
-    //private IEnumerator PlayIntro()
-    //{
-    //    if (StateMachine.Instance.IntroductionPlayed)
-    //    {
-    //        Narator.clip = IntroReduced;
-    //    }
-    //    else
-    //    {
-    //        Narator.clip = IntroFull;
-    //    }
-    //    Narator.loop = false;
-    //    Narator.Play();
-    //    yield return new WaitForSeconds(Narator.clip.length);
-    //    SoundManager.Instance.MainSource.volume = 0.5f;
-    //    yield return new WaitForSeconds(1.5f);
-    //    SoundManager.Instance.MainSource.volume = 1;
-    //    StateMachine.Instance.IntroductionPlayed = true;
-    //    StateMachine.Instance.currentState = GameStates.Playing;
-    //}
+    public void StopNar(AudioClip[] clips, GameStates nextState)
+    {
+        Narator.Stop();
+        SoundManager.Instance.MainSource.volume = 0.4f;
+        StopCoroutine(PlayClips(clips, nextState));
+        StateMachine.Instance.currentState = nextState;
+    }
 
 }

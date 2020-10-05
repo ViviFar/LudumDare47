@@ -7,10 +7,13 @@ public class PlayerBullet : MonoBehaviour
     public AudioSource asce;
     public float speed = 4.0f;
 
+    Animator anim;
+
     private Rigidbody2D rg;
     void Start()
     {
         asce.Play();
+        anim = GetComponent<Animator>();
         rg = GetComponent<Rigidbody2D>();
         rg.velocity = new Vector2(0, speed);
         Destroy(gameObject, 5);
@@ -22,7 +25,17 @@ public class PlayerBullet : MonoBehaviour
         {
             GameController.Instance.EnemyKilled();
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+            StartCoroutine(Explode());
         }
+    }
+
+    private IEnumerator Explode()
+    {
+        anim.SetBool("Hit", true);
+        rg.velocity = new Vector2(0, 0);
+        Destroy(rg);
+        Destroy(GetComponent<BoxCollider2D>());
+        yield return new WaitForSeconds(0.4f);
+        Destroy(gameObject);
     }
 }

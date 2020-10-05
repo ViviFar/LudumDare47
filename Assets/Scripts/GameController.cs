@@ -87,6 +87,10 @@ public class GameController : GenericSingleton<GameController>
         if(Input.GetKeyDown(KeyCode.L)){
             Defeat();
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            StateMachine.Instance.currentState = GameStates.GameOver;
+        }
 #endif
     }
 

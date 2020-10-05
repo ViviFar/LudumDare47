@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Bonus
+  - DestroyedBullet
   layers:
   - Default
   - TransparentFX
