@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
+    public AudioSource asce;
     public float speed = 4.0f;
 
     private Rigidbody2D rg;
     void Start()
     {
+        asce.Play();
         rg = GetComponent<Rigidbody2D>();
         rg.velocity = new Vector2(0, speed);
         Destroy(gameObject, 5);

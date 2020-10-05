@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/InBetweenLevels.unity
     guid: 35d27812c8f33374c85f6216fb52f91e
+  - enabled: 1
+    path: Assets/_Scenes/Introduction.unity
+    guid: ef107a83f0f0a9a4a829518d7d870e9d
+  - enabled: 1
+    path: Assets/_Scenes/GameOver.unity
+    guid: 1afcc450e1a3fc5478c04c3ee7c2395f
   m_configObjects: {}

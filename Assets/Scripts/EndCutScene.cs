@@ -18,6 +18,5 @@ public class EndCutScene : MonoBehaviour
     private IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(cutsceneDuration);
-        StateMachine.Instance.currentState = GameStates.Playing;
     }
 }

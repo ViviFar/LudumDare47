@@ -9,7 +9,6 @@ public class GameController : GenericSingleton<GameController>
 {
 
     public GameObject PausePanel;
-    public GameObject DefeatPanel;
     public GameObject EnemyPrefab;
     public Transform enemiesParent;
     public Button BonusButton;
@@ -141,7 +140,7 @@ public class GameController : GenericSingleton<GameController>
         }
         PausePanel.SetActive(false);
         currentNbOfEnemies = numberOfEnemiesMax;
-        DefeatPanel.SetActive(false);
+        player.Restart();
         img.GetComponent<Fade>().fading = false;
         goingRight = true;
         startCountdown = 3;

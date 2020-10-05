@@ -18,6 +18,9 @@ public class StateMachine : GenericSingleton<StateMachine>
     public float BaseDelayBetweenShots { get { return DelayBetweenShoots; } }
     public float PlayerSpeed = 7.0f;
 
+    [HideInInspector]
+    public bool IntroductionPlayed = false;
+
     public float BonusCd = 3;
     [SerializeField]
     private float BaseBonusDuration = 10;
@@ -45,6 +48,7 @@ public class StateMachine : GenericSingleton<StateMachine>
 
     public  void restartGame()
     {
+        IntroductionPlayed = false;
         currentLevel = 0;
         CurrentBonusDuration = BaseBonusDuration;
         curDelayShots = DelayBetweenShoots;
@@ -66,6 +70,9 @@ public class StateMachine : GenericSingleton<StateMachine>
                 case GameStates.Menu:
                     onMenuStateEnter();
                     break;
+                case GameStates.Introduction:
+                    onIntroductionStateEnter();
+                    break;
                 case GameStates.Playing:
                     onPlayingStateEnter();
                     break;
@@ -85,11 +92,29 @@ public class StateMachine : GenericSingleton<StateMachine>
         }
     }
 
+    private void onIntroductionStateEnter()
+    {
+        SceneManager.LoadScene("Introduction");
+        SoundManager.Instance.PlayNarator(SoundManager.Instance.IntroFull);
+    }
+
     private void onLevelWonStateEnter()
     {
         GameController.Instance.EndBonus();
         currentLevel++;
-        SceneManager.LoadScene("InBetweenLevels");
+        if (currentLevel % 6 == 0)
+        {
+            SceneManager.LoadScene("Introduction");
+            SoundManager.Instance.PlayNarator(SoundManager.Instance.IntroReduced);
+        }
+        else
+        {
+            SceneManager.LoadScene("InBetweenLevels");
+            AudioClip[] clips = new AudioClip[2];
+            clips[0] = SoundManager.Instance.nvx[(CurrentLevel % 6) - 1];
+            clips[1] = SoundManager.Instance.nectars[NumberOfBonusUsed / 2];
+            SoundManager.Instance.PlayNarator(clips);
+        }
     }
 
     private void onQuittingStateEnter()
@@ -100,7 +125,8 @@ public class StateMachine : GenericSingleton<StateMachine>
 
     private void onGameOverStateEnter()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("GameOver");
+        SoundManager.Instance.PlayNarator(SoundManager.Instance.conclusion);
     }
 
     private void onPlayingStateEnter()

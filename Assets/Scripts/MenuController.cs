@@ -37,7 +37,7 @@ public class MenuController : MonoBehaviour
 
     public void Play()
     {
-        StateMachine.Instance.currentState = GameStates.Playing;
+        StateMachine.Instance.currentState = GameStates.Introduction;
     }
 
     public void GoToMenu()

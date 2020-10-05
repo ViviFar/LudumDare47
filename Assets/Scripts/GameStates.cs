@@ -5,6 +5,7 @@ using UnityEngine;
 public enum GameStates
 {
     Menu,
+    Introduction,
     Playing,
     GameOver,
     Quitting,

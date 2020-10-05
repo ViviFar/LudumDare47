@@ -70,4 +70,9 @@ public class PlayerController : MonoBehaviour
     {
         delayBetweenShoots = newAS;
     }
+
+    public void Restart()
+    {
+        startTimer = 0;
+    }
 }
