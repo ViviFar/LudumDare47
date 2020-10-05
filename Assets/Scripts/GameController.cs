@@ -37,8 +37,6 @@ public class GameController : GenericSingleton<GameController>
     private bool paused = false;
 
     public float bonusDuration = 5;
-    private bool bonusTaken = false;
-    private float bonusCountdown = 0;
 
 
     public Text CountdownText;
@@ -107,6 +105,7 @@ public class GameController : GenericSingleton<GameController>
 
     public void LoadMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 
